@@ -117,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
         """ Create an object of any class"""
         list_arg = args.split()
         dictionnary = {}
-       
+
         for element in list_arg[1:]:
             try:
                 key, value = element.split("=")
@@ -129,11 +129,11 @@ class HBNBCommand(cmd.Cmd):
 
             if key in HBNBCommand.types:
                 dictionnary[key] = HBNBCommand.types[key](dictionnary[key])
-        
+
         if not args:
             print("** class name missing **")
             return
-        
+
         class_name = list_arg[0]
         if not class_name:
             print("** class name missing **")
@@ -141,13 +141,12 @@ class HBNBCommand(cmd.Cmd):
         elif class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
+
         new_instance = HBNBCommand.classes[class_name]()
-        
+
         for cle, value in dictionnary.items():
             setattr(new_instance, cle, value)
-          
-        
+
         storage.save()
         print(new_instance.id)
 
