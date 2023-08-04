@@ -115,40 +115,29 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        list_arg = args.split()
-        dictionnary = {}
-
-        for element in list_arg[1:]:
-            try:
-                key, value = element.split("=")
-                value = value.replace('_', ' ')
-                value = value.strip("\"")
-                dictionnary[key] = value
-            except Exception:
-                pass
-
-            if key in HBNBCommand.types:
-                dictionnary[key] = HBNBCommand.types[key](dictionnary[key])
-
+        arg_list = args.split()
         if not args:
             print("** class name missing **")
             return
-
-        class_name = list_arg[0]
-        if not class_name:
-            print("** class name missing **")
-            return
-        elif class_name not in HBNBCommand.classes:
+        elif arg_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
-        new_instance = HBNBCommand.classes[class_name]()
+        new_instance = HBNBCommand.classes[arg_list[0]]()
+        for i in range(1, len(arg_list)):
+            mot_split = arg_list[i].split('=')
+            if len(mot_split) > 1:
+                if mot_split[1][0] == '"':
+                    mot_split[1] = mot_split[1].replace('_', ' ')
+                    setattr(new_instance, mot_split[0], mot_split[1][1:-1])
+                elif '.' in mot_split[1]:
+                    setattr(new_instance, mot_split[0], float(mot_split[1]))
+                else:
+                    setattr(new_instance, mot_split[0], int(mot_split[1]))
 
-        for cle, value in dictionnary.items():
-            setattr(new_instance, cle, value)
-
-        storage.save()
         print(new_instance.id)
+        new_instance.save()
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
