@@ -28,7 +28,7 @@ class BaseModel:
                                                      '%Y-%m-%dT%H:%M:%S.%f')
             # create instance attribute from dictionnary
             # self.name = kwargs['name']
-            
+
             del kwargs['__class__']
             self.__dict__.update(kwargs)
 
@@ -53,10 +53,10 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        
-        # remove the key _sa_instance_state 
+
+        # remove the key _sa_instance_state
         dictionary.pop('_sa_instance_state', None)
-                
+
         return dictionary
 
     def delete(self):
