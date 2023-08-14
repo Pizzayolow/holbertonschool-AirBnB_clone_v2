@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""import flask and use it"""
 from flask import Flask
 """open the applicatation"""
 app = Flask(__name__)
