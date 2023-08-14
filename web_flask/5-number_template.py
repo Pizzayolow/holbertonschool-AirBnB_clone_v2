@@ -38,10 +38,12 @@ def number(n):
     """verify if n is a number"""
     return f"{n} is a number"
 
+
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_body(n):
     """change a variable inside a thml body"""
     return render_template("5-number.html", n=n)
+
 
 if __name__ == '__main__':
     app.run()
