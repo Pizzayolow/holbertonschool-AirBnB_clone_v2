@@ -5,6 +5,8 @@ from flask import Flask
 app = Flask(__name__)
 
 """decorator"""
+
+
 @app.route('/', strict_slashes=False)
 def route():
     """return SHello HBNB!"""
