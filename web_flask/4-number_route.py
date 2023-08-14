@@ -32,9 +32,10 @@ def route_python(text):
     text = text.replace('_', ' ')
     return f"Python {text}"
 
-"""verify if n is a number"""
+
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
+    """verify if n is a number"""
     return f"{n} is a number"
 
 
