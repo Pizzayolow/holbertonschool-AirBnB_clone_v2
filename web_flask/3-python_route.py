@@ -30,7 +30,7 @@ def route_c(text):
 @app.route('/python/<text>', strict_slashes=False)
 def route_python(text):
     text = text.replace('_', ' ')
-    return f"python {text}"
+    return f"Python {text}"
 
 
 if __name__ == '__main__':
