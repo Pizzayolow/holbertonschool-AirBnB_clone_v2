@@ -1,66 +1,81 @@
 #!/usr/bin/python3
-"""import flask and use it"""
+""" Script that runs an app with Flask framework """
 from flask import Flask, render_template
-from models import storage
-"""open the applicatation"""
-app = Flask(__name__)
+from models import *
 
-"""decorator"""
+app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def route():
-    """return Hello HBNB!"""
-    return "Hello HBNB!"
+def hello_hbnb():
+    """ Function called with / route """
+    return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-def routehbnb():
-    """return hbnb"""
-    return "HBNB"
+def hbnb():
+    """ Function called with /hbnb route """
+    return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def route_c(text):
-    """return a value"""
-    text = text.replace('_', ' ')
-    return f"C {text}"
+def c_text(text):
+    """
+    Function called with /c/<text> route
+    display C followed by text variable
+    """
+    return 'C %s' % text.replace('_', ' ')
 
 
-@app.route('/python/', strict_slashes=False, defaults={'text': 'is cool'})
+@app.route('/python/', defaults={'text': 'is_cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def route_python(text):
-    text = text.replace('_', ' ')
-    return f"Python {text}"
+def python_text(text):
+    """
+    Function called with /python/<text> route
+    display Python followed by text variable
+    """
+    return 'Python %s' % text.replace('_', ' ')
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
-    """verify if n is a number"""
-    return f"{n} is a number"
+    """
+    Function called with /number/<n> route
+    """
+    return "%d is a number" % n
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def number_body(n):
-    """change a variable inside a thml body"""
-    return render_template("5-number.html", n=n)
+def number_template(n):
+    """
+    Function called with /number_template/<int:n> route
+    """
+    return render_template('5-number.html', num=n)
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def odd_or_even(n):
-    """check if the number is odd or even"""
-    return render_template('6-number_odd_or_even.html', n=n)
+def number_odd_or_even(n):
+    """
+    Function called with /number_odd_or_even/<int:n> route
+    """
+    return render_template('6-number_odd_or_even.html', num=n)
 
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
-    """display a list of states"""
-    states_list = storage.all("State")
-    return render_template('7-states_list.html', states=states_list)
+    """
+    Function called with /states_list route
+    Display html page
+    """
+    list_states = storage.all("State")
+    return render_template('7-states_list.html', states=list_states)
+
 
 @app.teardown_appcontext
-def teardown_db(err):
+def teardown(err):
+    """remove the current session"""
     storage.close()
 
-if __name__ == '__main__':
-    app.run()
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
