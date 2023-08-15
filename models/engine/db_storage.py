@@ -25,7 +25,8 @@ class DBStorage:
 
         # Créer le moteur
         self.__engine = create_engine(
-            f'mysql+mysqldb://{user}:{password}@{host}/{db}', pool_pre_ping=True)
+            f'mysql+mysqldb://{user}:{password}@{host}/{db}',
+            pool_pre_ping=True)
         __session = Session(self.__engine)
 
         if os.getenv('HBNB_ENV') == 'test':
