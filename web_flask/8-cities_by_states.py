@@ -75,8 +75,8 @@ def states_list():
 def cities_by_states():
     list_states = storage.all("State")
     list_cities = storage.all('City')
-    return render_template('8-cities_by_states.html',
-                           cities=list_cities, states=list_states)
+    return render_template('8-cities_by_states.html', cities=list_cities, 
+                           states=list_states)
 
 
 @app.teardown_appcontext
