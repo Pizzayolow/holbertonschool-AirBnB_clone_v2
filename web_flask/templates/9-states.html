@@ -8,11 +8,11 @@
 <BODY>
     {% if states[id] %}
     <H1>State: {{ states[id].name }}</H1>
-    <H3>Cities:</H3>ß
+    <H3>Cities:</H3>
     <UL>
         {% for city in states[id].cities %}
         <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
-        {% endfor %}ß
+        {% endfor %}
     </UL>
     {% else %}
     <h1>Not found!</h1>
