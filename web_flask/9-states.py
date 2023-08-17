@@ -92,7 +92,7 @@ def list_states():
 @app.route('/states/<id>', strict_slashes=False)
 def state_id(id):
     list_states = storage.all("State")
-    return render_template('9-states.html', the_id=id, states=list_states)
+    return render_template('9-states.html', id=id, states=list_states)
 
 
 @app.teardown_appcontext
